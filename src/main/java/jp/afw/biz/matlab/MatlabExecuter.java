@@ -22,7 +22,9 @@ public class MatlabExecuter {
 	/**
 	 * このEnumは、MATLABのからの実行結果を表現するEnumです。
 	 * 
-	 * @author N.Kawakita
+	 * @since 1.0.0
+	 * @version 1.0.0 2013/07/02
+	 * @author Kawakicchi
 	 * 
 	 */
 	public static enum Result {
