@@ -86,10 +86,18 @@ public class MatlabExecuter {
 	private String errorFileName = "error";
 
 	/**
+	 * 改行コード
+	 */
+	private String lineSeparator = "\n";
+
+	/**
 	 * コンストラクタ
 	 */
 	public MatlabExecuter() {
-
+		try {
+			lineSeparator = System.getProperty("line.separator");
+		} catch (SecurityException e) {
+		}
 	}
 
 	/**
@@ -187,18 +195,22 @@ public class MatlabExecuter {
 		if (-1 != index) {
 			scriptName = aScriptName.substring(0, index);
 		}
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("try").append(lineSeparator);
+		sb.append("cd('").append(aTargetDir).append("');").append(lineSeparator);
+		sb.append(scriptName).append(lineSeparator);
+		sb.append("successFileId = fopen('").append(successFileName).append("','W');").append(lineSeparator);
+		sb.append("fclose(successFileId);").append(lineSeparator);
+		sb.append("catch ME").append(lineSeparator);
+		sb.append("error=ME.message").append(lineSeparator);
+		sb.append("errorFileId = fopen('").append(errorFileName).append("','W');").append(lineSeparator);
+		sb.append("fclose(errorFileId);").append(lineSeparator);
+		sb.append("end").append(lineSeparator);
+		sb.append("exit;");
+
 		BufferedWriter writer = new BufferedWriter(new FileWriter(runFilePath));
-		writer.write("try\r\n");
-		writer.write("cd('" + aTargetDir + "');\r\n");
-		writer.write(scriptName + "\r\n");
-		writer.write("successFileId = fopen('" + successFileName + "','W');\r\n");
-		writer.write("fclose(successFileId);\r\n");
-		writer.write("catch ME\r\n");
-		writer.write("error=ME.message\r\n");
-		writer.write("errorFileId = fopen('" + errorFileName + "','W');\r\n");
-		writer.write("fclose(errorFileId);\r\n");
-		writer.write("end\r\n");
-		writer.write("exit;");
+		writer.write(sb.toString());
 		writer.close();
 		return runFilePath;
 	}
