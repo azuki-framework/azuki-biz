@@ -36,42 +36,29 @@ public final class ZipUtility {
 	/**
 	 * デフォルト(ファイル名解析)エンコーダを使用してファイル及びディレクトリをZIP圧縮します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル名
-	 * @param aTargetFiles
-	 *            圧縮対象のファイル及びディレクトリ名列
+	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ名列
 	 * @return ZIPファイル
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File zip(final String aZipFile, final String... aTargetFiles)
-			throws ZipException, FileNotFoundException, IOException {
+	public static File zip(final String aZipFile, final String... aTargetFiles) throws ZipException, FileNotFoundException, IOException {
 		return zip(aZipFile, aTargetFiles, null);
 	}
 
 	/**
 	 * ファイル及びディレクトリをZIP圧縮します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル名
-	 * @param aTargetFiles
-	 *            圧縮対象のファイル及びディレクトリ名配列
-	 * @param aEncoding
-	 *            エンコーディング名
+	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ名配列
+	 * @param aEncoding エンコーディング名
 	 * @return ZIPファイル
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File zip(final String aZipFile, final String[] aTargetFiles,
-			final String aEncoding) throws ZipException, FileNotFoundException,
+	public static File zip(final String aZipFile, final String[] aTargetFiles, final String aEncoding) throws ZipException, FileNotFoundException,
 			IOException {
 		int n = aTargetFiles.length;
 		File[] files = new File[n];
@@ -84,49 +71,38 @@ public final class ZipUtility {
 	/**
 	 * ファイル及びディレクトリをZIP圧縮します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル名
-	 * @param aTargetFiles
-	 *            圧縮対象のファイル及びディレクトリ配列
-	 * @param aEncoding
-	 *            エンコーディング名
+	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ配列
+	 * @param aEncoding エンコーディング名
 	 * @return ZIPファイル
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File zip(final File zipFile, final File[] aTargetFiles,
-			final String aEncoding) throws ZipException, FileNotFoundException,
+	public static File zip(final File zipFile, final File[] aTargetFiles, final String aEncoding) throws ZipException, FileNotFoundException,
 			IOException {
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));
 		out.setEncoding(aEncoding);
 		for (int i = 0; i < aTargetFiles.length; i++) {
-			int deleteLength = aTargetFiles[i].getPath().length()
-					- aTargetFiles[i].getName().length();
+			int deleteLength = aTargetFiles[i].getPath().length() - aTargetFiles[i].getName().length();
 			zip(out, aTargetFiles[i], deleteLength);
 		}
 		out.close();
 		return zipFile;
 	}
 
-	private static void zip(ZipOutputStream out, File targetFile,
-			int deleteLength) throws IOException {
+	private static void zip(ZipOutputStream out, File targetFile, int deleteLength) throws IOException {
 		if (targetFile.isDirectory()) {
 			File[] files = targetFile.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				zip(out, files[i], deleteLength);
 			}
 		} else {
-			ZipEntry target = new ZipEntry(targetFile.getPath().substring(
-					deleteLength));
+			ZipEntry target = new ZipEntry(targetFile.getPath().substring(deleteLength));
 			out.putNextEntry(target);
 			byte buf[] = new byte[ZIP_BUFF_SIZE];
 			int count;
-			BufferedInputStream in = new BufferedInputStream(
-					new FileInputStream(targetFile));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(targetFile));
 			while ((count = in.read(buf, 0, ZIP_BUFF_SIZE)) != EOF) {
 				out.write(buf, 0, count);
 			}
@@ -138,66 +114,72 @@ public final class ZipUtility {
 	/**
 	 * デフォルト(ファイル名解析)エンコーダを使用してZIPファイルを解凍します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル名
-	 * @param aOutDir
-	 *            解凍先ディレクトリ名
+	 * @param aZipFile ZIPファイル名
+	 * @param aOutDir 解凍先ディレクトリ名
 	 * @return 解凍されたファイルまたはディレクトリ
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File unzip(final String aZipFile, final String aOutDir)
-			throws ZipException, FileNotFoundException, IOException {
+	public static File unzip(final String aZipFile, final String aOutDir) throws ZipException, FileNotFoundException, IOException {
 		return unzip(aZipFile, aOutDir, null);
 	}
 
 	/**
 	 * ZIPファイルを解凍します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル名
-	 * @param aOutDir
-	 *            解凍先ディレクトリ名
-	 * @param aEncoding
-	 *            エンコーディング名
+	 * @param aZipFile ZIPファイル名
+	 * @param aOutDir 解凍先ディレクトリ名
+	 * @param aEncoding エンコーディング名
 	 * @return 解凍されたファイルまたはディレクトリ
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File unzip(final String aZipFile, final String aOutDir,
-			final String aEncoding) throws ZipException, FileNotFoundException,
+	public static File unzip(final String aZipFile, final String aOutDir, final String aEncoding) throws ZipException, FileNotFoundException,
 			IOException {
-		return unzip(new File(aZipFile), new File(aOutDir), aEncoding);
+		return unzip(new File(aZipFile), new File(aOutDir), false, aEncoding);
 	}
 
 	/**
 	 * ZIPファイルを解凍します。
 	 * 
-	 * @param aZipFile
-	 *            ZIPファイル
-	 * @param aOutDir
-	 *            解凍先ディレクトリ
-	 * @param aEncoding
-	 *            エンコーディング名
+	 * @param aZipFile ZIPファイル名
+	 * @param aOutDir 解凍先ディレクトリ名
+	 * @param aMakeDir ファイル名でディレクトリ作成を行う。
 	 * @return 解凍されたファイルまたはディレクトリ
-	 * @throws ZipException
-	 *             ZIP処理時に問題が発生した場合
-	 * @throws FileNotFoundException
-	 *             ファイルが見つからなかった場合
-	 * @throws IOException
-	 *             IO操作時に問題が発生した場合
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
 	 */
-	public static File unzip(final File aZipFile, final File aOutDir,
-			final String aEncoding) throws ZipException, FileNotFoundException,
+	public static File unzip(final String aZipFile, final String aOutDir, final boolean aMakeDir) throws ZipException, FileNotFoundException,
 			IOException {
+		return unzip(new File(aZipFile), new File(aOutDir), aMakeDir, null);
+	}
+
+	/**
+	 * ZIPファイルを解凍します。
+	 * 
+	 * @param aZipFile ZIPファイル
+	 * @param aOutDir 解凍先ディレクトリ
+	 * @param aMakeDir ファイル名でディレクトリ作成を行う。
+	 * @param aEncoding エンコーディング名
+	 * @return 解凍されたファイルまたはディレクトリ
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
+	 */
+	public static File unzip(final File aZipFile, final File aOutDir, final boolean aMakeDir, final String aEncoding) throws ZipException,
+			FileNotFoundException, IOException {
+		File outputDir = null;
+		if (aMakeDir) {
+			String fileName = aZipFile.getName();
+			String name = fileName.substring(0, fileName.lastIndexOf("."));
+			outputDir = new File(aOutDir.getAbsolutePath() + "\\" + name);
+		} else {
+			outputDir = aOutDir;
+		}
+
 		ZipFile zipFile = new ZipFile(aZipFile, aEncoding);
 		Enumeration<ZipEntry> enumeration = zipFile.getEntries();
 		while (enumeration.hasMoreElements()) {
@@ -205,7 +187,7 @@ public final class ZipUtility {
 			if (entry.isDirectory()) {
 				new File(entry.getName()).mkdirs();
 			} else {
-				File file = new File(aOutDir, entry.getName());
+				File file = new File(outputDir, entry.getName());
 				file.getParentFile().mkdirs();
 				FileOutputStream out = new FileOutputStream(file);
 				InputStream in = zipFile.getInputStream(entry);
