@@ -18,22 +18,43 @@
 
 	<groupId>jp.afw</groupId>
 	<artifactId>azuki-biz</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>azuki-biz</name>
 	<url>https://github.com/azuki-framework/azuki-biz</url>
 
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/maven-repository</url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.global.server>azuki-framework.github</github.global.server>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>AzukiFrameworkBaseRepository</id>
+			<url>https://raw.github.com/azuki-framework/azuki-base/maven-repository/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
 			<groupId>jp.afw</groupId>
 			<artifactId>azuki-base</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+	
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
@@ -64,6 +85,32 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.8</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}/maven-repository</outputDirectory>
+					<branch>refs/heads/maven-repository</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>azuki-biz</repositoryName>
+					<repositoryOwner>azuki-framework</repositoryOwner>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	
 </project>
