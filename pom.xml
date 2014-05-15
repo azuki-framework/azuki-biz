@@ -25,6 +25,10 @@
 	<description>Azuki Framework biz library</description>
 	<url>https://github.com/azuki-framework/azuki-biz</url>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<repositories>
 		<repository>
 			<id>AzukiFrameworkRepository</id>
