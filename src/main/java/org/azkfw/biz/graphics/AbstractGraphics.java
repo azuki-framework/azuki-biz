@@ -15,12 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics;
+package org.azkfw.biz.graphics;
 
-import java.awt.image.BufferedImage;
+public abstract class AbstractGraphics implements Graphics {
 
-public interface Graphics {
-
-	BufferedImage draw();
-	
 }

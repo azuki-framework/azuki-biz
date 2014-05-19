@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.mail;
+package org.azkfw.biz.mail;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,10 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.afw.business.BusinessServiceException;
-import jp.afw.business.manager.AbstractManager;
-import jp.afw.core.util.StringUtility;
-import jp.afw.persistence.context.Context;
+import org.azkfw.business.BusinessServiceException;
+import org.azkfw.business.manager.AbstractManager;
+import org.azkfw.core.util.StringUtility;
+import org.azkfw.persistence.context.Context;
 
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;

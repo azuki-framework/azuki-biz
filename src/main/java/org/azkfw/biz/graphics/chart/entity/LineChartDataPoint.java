@@ -15,60 +15,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics.chart.entity;
+package org.azkfw.biz.graphics.chart.entity;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
 
-public class LineChartData {
+public class LineChartDataPoint {
 
-	private List<LineChartDataPoint> points;
-
-	private Color lineStrokeColor;
+	private double verticalValue;
+	private double horizontalValue;
 
 	private double pointRadius;
 	private Color pointStrokeColor;
 	private Color pointFillColor;
 
+	private String comment;
 	private Font commentFont;
 	private Color commentColor;
 	private Color commentStrokeColor;
 	private Color commentFillColor;
 
-	public LineChartData() {
-		points = new ArrayList<LineChartDataPoint>();
-		lineStrokeColor = null;
+	public LineChartDataPoint() {
+		verticalValue = 0.f;
+		horizontalValue = 0.f;
 		pointRadius = -1.f;
 		pointStrokeColor = null;
 		pointFillColor = null;
-
+		
+		comment = null;
 		commentFont = null;
 		commentColor = null;
 		commentStrokeColor = null;
 		commentFillColor = null;
 	}
 
-	public LineChartData(final List<LineChartDataPoint> aPoints) {
-		points = aPoints;
-		lineStrokeColor = null;
+	public LineChartDataPoint(final double aHorizontal, final double aVertical) {
+		verticalValue = aVertical;
+		horizontalValue = aHorizontal;
 		pointRadius = -1.f;
 		pointStrokeColor = null;
 		pointFillColor = null;
-
+		
+		comment = null;
 		commentFont = null;
 		commentColor = null;
 		commentStrokeColor = null;
 		commentFillColor = null;
 	}
 
-	public void setPoints(final List<LineChartDataPoint> aPoints) {
-		points = aPoints;
-	}
-
-	public void setLineStrokeColor(final Color aColor) {
-		lineStrokeColor = aColor;
+	public void setPoint(final double aHorizontal, final double aVertical) {
+		verticalValue = aVertical;
+		horizontalValue = aHorizontal;
 	}
 
 	public void setPointRadius(final double aRadius) {
@@ -83,28 +80,29 @@ public class LineChartData {
 		pointFillColor = aColor;
 	}
 
+	public void setComment(final String aComment) {
+		comment = aComment;
+	}
 	public void setCommentFont(final Font aFont) {
 		commentFont = aFont;
 	}
-
 	public void setCommentColor(final Color aColor) {
 		commentColor = aColor;
 	}
-
 	public void setCommentStrokeColor(final Color aColor) {
 		commentStrokeColor = aColor;
 	}
-
 	public void setCommentFillColor(final Color aColor) {
 		commentFillColor = aColor;
 	}
 
-	public List<LineChartDataPoint> getPoints() {
-		return points;
+
+	public double getHorizontalValue() {
+		return horizontalValue;
 	}
 
-	public Color getLineStrokeColor() {
-		return lineStrokeColor;
+	public double getVerticalValue() {
+		return verticalValue;
 	}
 
 	public double getPointRadius() {
@@ -119,10 +117,13 @@ public class LineChartData {
 		return pointFillColor;
 	}
 
+	public String getComment() {
+		return comment;
+	}
+	
 	public Font getCommentFont() {
 		return commentFont;
 	}
-
 	public Color getCommentColor() {
 		return commentColor;
 	}

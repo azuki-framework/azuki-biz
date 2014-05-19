@@ -15,18 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics.chart;
 
-import java.awt.image.BufferedImage;
+/**
+ * タイマー関連のクラスおよびインタフェースを提供します。
+ */
+package org.azkfw.biz.timer;
 
-import jp.afw.biz.graphics.AbstractGraphics;
-
-public abstract class AbstractChartGraphics extends AbstractGraphics {
-
-	@Override
-	public BufferedImage draw() {
-		return drawChart();
-	}
-
-	protected abstract BufferedImage drawChart();
-}

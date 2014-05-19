@@ -15,43 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics.entity;
+package org.azkfw.biz.graphics.chart;
 
-public class Rect {
+import java.awt.image.BufferedImage;
 
-	private double x;
-	private double y;
-	private double width;
-	private double height;
+import org.azkfw.biz.graphics.AbstractGraphics;
 
-	public Rect() {
+public abstract class AbstractChartGraphics extends AbstractGraphics {
 
+	@Override
+	public BufferedImage draw() {
+		return drawChart();
 	}
 
-	public void setPosition(final double aX, final double aY) {
-		x = aX;
-		y = aY;
-	}
-
-	public void setSize(final double aWidth, final double aHeight) {
-		width = aWidth;
-		height = aHeight;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public double getWidth() {
-		return width;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
+	protected abstract BufferedImage drawChart();
 }

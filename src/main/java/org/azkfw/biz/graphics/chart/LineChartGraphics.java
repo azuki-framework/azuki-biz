@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics.chart;
+package org.azkfw.biz.graphics.chart;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,14 +25,15 @@ import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import jp.afw.biz.graphics.chart.entity.LineChart;
-import jp.afw.biz.graphics.chart.entity.LineChartData;
-import jp.afw.biz.graphics.chart.entity.LineChartDataPoint;
-import jp.afw.biz.graphics.chart.entity.LineChartHorizontalAxis;
-import jp.afw.biz.graphics.chart.entity.LineChartVerticalAxis;
-import jp.afw.biz.graphics.entity.Rect;
-import jp.afw.core.util.ListUtility;
-import jp.afw.core.util.StringUtility;
+import org.azkfw.biz.graphics.chart.entity.LineChart;
+import org.azkfw.biz.graphics.chart.entity.LineChartData;
+import org.azkfw.biz.graphics.chart.entity.LineChartDataPoint;
+import org.azkfw.biz.graphics.chart.entity.LineChartHorizontalAxis;
+import org.azkfw.biz.graphics.chart.entity.LineChartVerticalAxis;
+import org.azkfw.biz.graphics.entity.Rect;
+
+import org.azkfw.core.util.ListUtility;
+import org.azkfw.core.util.StringUtility;
 
 public class LineChartGraphics extends AbstractChartGraphics {
 

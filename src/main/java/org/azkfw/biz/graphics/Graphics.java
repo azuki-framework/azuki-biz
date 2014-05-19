@@ -15,9 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.azkfw.biz.graphics;
 
-/**
- * タイマー関連のクラスおよびインタフェースを提供します。
- */
-package jp.afw.biz.timer;
+import java.awt.image.BufferedImage;
 
+public interface Graphics {
+
+	BufferedImage draw();
+	
+}

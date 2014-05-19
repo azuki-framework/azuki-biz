@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.matlab;
+package org.azkfw.biz.matlab;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.afw.core.util.PathUtility;
-import jp.afw.core.util.StringUtility;
+import org.azkfw.core.util.PathUtility;
+import org.azkfw.core.util.StringUtility;
 
 /**
  * このクラスは、MATLABのスクリプトを実行するクラスです。

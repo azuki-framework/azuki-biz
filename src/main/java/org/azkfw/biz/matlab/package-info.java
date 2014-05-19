@@ -19,5 +19,5 @@
 /**
  * MATLAB関連のクラスおよびインタフェースを提供します。
  */
-package jp.afw.biz.matlab;
+package org.azkfw.biz.matlab;
 

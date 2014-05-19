@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jp.afw.biz.graphics.chart.entity;
+package org.azkfw.biz.graphics.chart.entity;
 
 import java.awt.Color;
 import java.awt.Font;
