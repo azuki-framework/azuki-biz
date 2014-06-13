@@ -22,7 +22,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 import org.azkfw.biz.graphics.chart.entity.LineChart;
@@ -31,7 +30,6 @@ import org.azkfw.biz.graphics.chart.entity.LineChartDataPoint;
 import org.azkfw.biz.graphics.chart.entity.LineChartHorizontalAxis;
 import org.azkfw.biz.graphics.chart.entity.LineChartVerticalAxis;
 import org.azkfw.biz.graphics.entity.Rect;
-
 import org.azkfw.core.util.ListUtility;
 import org.azkfw.core.util.StringUtility;
 
@@ -39,23 +37,15 @@ public class LineChartGraphics extends AbstractChartGraphics {
 
 	private LineChart chart;
 
-	private double width;
-	private double height;
-
 	public void setChart(final LineChart aChart) {
 		chart = aChart;
 	}
 
-	public void setSize(final double aWidth, final double aheight) {
-		width = aWidth;
-		height = aheight;
-	}
-
 	@Override
-	public BufferedImage drawChart() {
-		BufferedImage image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_BGR);
-		Graphics2D g = image.createGraphics();
-
+	public void drawChart(final Graphics2D g) {
+		int width = (int)getWidth();
+		int height = (int)getHeight();
+		
 		LineChartVerticalAxis vAxis = chart.getVerticalAxis();
 		LineChartHorizontalAxis hAxis = chart.getHorizontalAxis();
 
@@ -380,8 +370,6 @@ public class LineChartGraphics extends AbstractChartGraphics {
 				}
 			}
 		}
-
-		return image;
 	}
 
 }

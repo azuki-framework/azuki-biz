@@ -17,16 +17,61 @@
  */
 package org.azkfw.biz.graphics.chart;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import org.azkfw.biz.graphics.AbstractGraphics;
 
+/**
+ * このクラスは、チャートを描画する為の基底グラフィクスクラスです。
+ * 
+ * @since 1.0.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
 public abstract class AbstractChartGraphics extends AbstractGraphics {
+
+	/**
+	 * width
+	 */
+	private double width;
+
+	/**
+	 * height
+	 */
+	private double height;
+
+	/**
+	 * チャートサイズを設定する。
+	 * 
+	 * @param aWidth width
+	 * @param aheight height
+	 */
+	public final void setSize(final double aWidth, final double aheight) {
+		width = aWidth;
+		height = aheight;
+	}
+
+	protected final double getWidth() {
+		return width;
+	}
+
+	protected final double getHeight() {
+		return height;
+	}
 
 	@Override
 	public BufferedImage draw() {
-		return drawChart();
+		BufferedImage image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = image.createGraphics();
+
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		drawChart(g);
+
+		return image;
 	}
 
-	protected abstract BufferedImage drawChart();
+	protected abstract void drawChart(final Graphics2D g);
 }
