@@ -303,6 +303,7 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 			points2.add(point2);
 			if (i == 5) {
 				point2.setFillColor(new Color(0,255,0,64));
+				point2.setStrokeColor(new Color(0, 255, 0, 200));
 			}
 		}
 		data1.setPoints(points1);
