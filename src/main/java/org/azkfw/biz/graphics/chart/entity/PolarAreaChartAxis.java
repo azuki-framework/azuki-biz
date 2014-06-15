@@ -17,6 +17,8 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
+import java.awt.Color;
+
 /**
  * このクラスは、鶏頭図の軸情報を格納したクラスです。
  * 
@@ -29,6 +31,14 @@ public class PolarAreaChartAxis {
 	private double maximumValue;
 
 	private double scale;
+	private double subScale;
+
+	private Color scaleStrokeColor;
+	private Color subScaleStrokeColor;
+
+	public PolarAreaChartAxis() {
+
+	}
 
 	public void setMaximumValue(final double aValue) {
 		maximumValue = aValue;
@@ -44,5 +54,29 @@ public class PolarAreaChartAxis {
 
 	public double getScale() {
 		return scale;
+	}
+
+	public void setSubScale(final double aScale) {
+		subScale = aScale;
+	}
+
+	public double getSubScale() {
+		return subScale;
+	}
+
+	public void setScaleStrokeColor(final Color aColor) {
+		scaleStrokeColor = aColor;
+	}
+
+	public Color getScaleStrokeColor() {
+		return scaleStrokeColor;
+	}
+
+	public void setSubScaleStrokeColor(final Color aColor) {
+		subScaleStrokeColor = aColor;
+	}
+
+	public Color getSubScaleStrokeColor() {
+		return subScaleStrokeColor;
 	}
 }

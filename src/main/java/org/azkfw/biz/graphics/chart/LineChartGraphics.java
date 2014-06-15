@@ -33,6 +33,13 @@ import org.azkfw.biz.graphics.entity.Rect;
 import org.azkfw.core.util.ListUtility;
 import org.azkfw.core.util.StringUtility;
 
+/**
+ * このクラスは、折れ線グラフを描画するグラフィクスクラスです。
+ * 
+ * @since 1.0.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
 public class LineChartGraphics extends AbstractChartGraphics {
 
 	private LineChart chart;
@@ -43,9 +50,9 @@ public class LineChartGraphics extends AbstractChartGraphics {
 
 	@Override
 	public void drawChart(final Graphics2D g) {
-		int width = (int)getWidth();
-		int height = (int)getHeight();
-		
+		int width = (int) getWidth();
+		int height = (int) getHeight();
+
 		LineChartVerticalAxis vAxis = chart.getVerticalAxis();
 		LineChartHorizontalAxis hAxis = chart.getHorizontalAxis();
 
@@ -157,8 +164,11 @@ public class LineChartGraphics extends AbstractChartGraphics {
 			hInterval *= -1;
 		// System.out.println("interval " + hInterval + ":" + vInterval);
 
-		g.setColor((null != chart.getBackgroundColor()) ? chart.getBackgroundColor() : Color.WHITE);
-		g.fillRect((int) 0, (int) 0, (int) width, (int) height);
+		
+		if (null != chart.getBackgroundColor()) {
+			g.setColor(chart.getBackgroundColor());
+			g.fillRect((int) 0, (int) 0, (int) width, (int) height);
+		}
 		g.setColor(new Color(200, 200, 200, 255));
 		g.drawRect((int) rtChart.getX(), (int) rtChart.getY(), (int) rtChart.getWidth(), (int) rtChart.getHeight());
 

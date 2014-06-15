@@ -18,7 +18,7 @@
 package org.azkfw.biz.graphics.chart.entity;
 
 /**
- * このクラスは、鶏頭図の軸情報を格納したクラスです。
+ * このクラスは、鶏頭図の補助軸情報を格納したクラスです。
  * 
  * @since 1.1.0
  * @version 1.1.0 2014/06/13

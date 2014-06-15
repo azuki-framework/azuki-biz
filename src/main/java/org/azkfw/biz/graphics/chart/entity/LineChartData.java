@@ -22,10 +22,19 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * このクラスは、折れ線グラフのデータ情報を格納したクラスです。
+ * 
+ * @since 1.1.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
 public class LineChartData {
 
+	// Data
 	private List<LineChartDataPoint> points;
 
+	//Layout
 	private Color lineStrokeColor;
 
 	private double pointRadius;
@@ -37,8 +46,12 @@ public class LineChartData {
 	private Color commentStrokeColor;
 	private Color commentFillColor;
 
+	/**
+	 * コンストラクタ
+	 */
 	public LineChartData() {
 		points = new ArrayList<LineChartDataPoint>();
+
 		lineStrokeColor = null;
 		pointRadius = -1.f;
 		pointStrokeColor = null;
@@ -50,8 +63,14 @@ public class LineChartData {
 		commentFillColor = null;
 	}
 
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param aPoints ポイント情報
+	 */
 	public LineChartData(final List<LineChartDataPoint> aPoints) {
 		points = aPoints;
+
 		lineStrokeColor = null;
 		pointRadius = -1.f;
 		pointStrokeColor = null;
@@ -67,68 +86,68 @@ public class LineChartData {
 		points = aPoints;
 	}
 
-	public void setLineStrokeColor(final Color aColor) {
-		lineStrokeColor = aColor;
-	}
-
-	public void setPointRadius(final double aRadius) {
-		pointRadius = aRadius;
-	}
-
-	public void setPointStrokeColor(final Color aColor) {
-		pointStrokeColor = aColor;
-	}
-
-	public void setPointFillColor(final Color aColor) {
-		pointFillColor = aColor;
-	}
-
-	public void setCommentFont(final Font aFont) {
-		commentFont = aFont;
-	}
-
-	public void setCommentColor(final Color aColor) {
-		commentColor = aColor;
-	}
-
-	public void setCommentStrokeColor(final Color aColor) {
-		commentStrokeColor = aColor;
-	}
-
-	public void setCommentFillColor(final Color aColor) {
-		commentFillColor = aColor;
-	}
-
 	public List<LineChartDataPoint> getPoints() {
 		return points;
+	}
+
+	public void setLineStrokeColor(final Color aColor) {
+		lineStrokeColor = aColor;
 	}
 
 	public Color getLineStrokeColor() {
 		return lineStrokeColor;
 	}
 
+	public void setPointRadius(final double aRadius) {
+		pointRadius = aRadius;
+	}
+
 	public double getPointRadius() {
 		return pointRadius;
+	}
+
+	public void setPointStrokeColor(final Color aColor) {
+		pointStrokeColor = aColor;
 	}
 
 	public Color getPointStrokeColor() {
 		return pointStrokeColor;
 	}
 
+	public void setPointFillColor(final Color aColor) {
+		pointFillColor = aColor;
+	}
+
 	public Color getPointFillColor() {
 		return pointFillColor;
+	}
+
+	public void setCommentFont(final Font aFont) {
+		commentFont = aFont;
 	}
 
 	public Font getCommentFont() {
 		return commentFont;
 	}
 
+	public void setCommentColor(final Color aColor) {
+		commentColor = aColor;
+	}
+
 	public Color getCommentColor() {
 		return commentColor;
 	}
 
+	public void setCommentStrokeColor(final Color aColor) {
+		commentStrokeColor = aColor;
+	}
+
 	public Color getCommentStrokeColor() {
 		return commentStrokeColor;
+	}
+
+	public void setCommentFillColor(final Color aColor) {
+		commentFillColor = aColor;
 	}
 
 	public Color getCommentFillColor() {

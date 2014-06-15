@@ -17,6 +17,66 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
+import java.awt.Color;
+
+import org.azkfw.biz.graphics.entity.Margin;
+
+/**
+ * このクラスは、チャート情報を格納した基底クラスです。
+ * 
+ * @since 1.1.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
 public abstract class AbstractChart {
 
+	/** マージン情報 */
+	private Margin margin;
+
+	/** 背景色 */
+	private Color backgroundColor;
+
+	/**
+	 * コンストラクタ
+	 */
+	public AbstractChart() {
+		margin = null;
+		backgroundColor = null;
+	}
+
+	/**
+	 * マージン情報を設定する。
+	 * 
+	 * @param aMargin マージン情報
+	 */
+	public final void setMargin(final Margin aMargin) {
+		margin = aMargin;
+	}
+
+	/**
+	 * マージン情報を取得する。
+	 * 
+	 * @return マージン情報
+	 */
+	public final Margin getMargin() {
+		return margin;
+	}
+
+	/**
+	 * 背景色を設定する。
+	 * 
+	 * @param aColor 背景色
+	 */
+	public final void setBackgroundColor(final Color aColor) {
+		backgroundColor = aColor;
+	}
+
+	/**
+	 * 背景色を取得する。
+	 * 
+	 * @return 背景色
+	 */
+	public final Color getBackgroundColor() {
+		return backgroundColor;
+	}
 }

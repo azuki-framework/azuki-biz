@@ -54,16 +54,14 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 
 	@Override
 	protected void drawChart(final Graphics2D g) {
+		int width = (int) getWidth();
+		int height = (int) getHeight();
 		Margin margin = chart.getMargin();
 
 		PolarAreaChartAxis axis = chart.getAxis();
 		PolarAreaChartSubAxis subAxis = chart.getSubAxis();
 
-		// ///////////////////////
-		double max = 1.5; // マス目の最大値
-
 		// //////////////////////////////////////////////////
-
 		double middleX = getWidth() / 2.f;
 		double middleY = getHeight() / 2.f;
 
@@ -72,8 +70,13 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 		double graphWidth = getWidth() - (margin.getLeft() + margin.getRight());
 		double graphHeight = getHeight() - (margin.getTop() + margin.getBottom());
 
-		double scaleWidth = graphWidth / 2 / max;
-		double scaleHeight = graphHeight / 2 / max;
+		double scaleWidth = (graphWidth / 2.f) / axis.getMaximumValue();
+		double scaleHeight = (graphHeight / 2.f) / axis.getMaximumValue();
+
+		if (null != chart.getBackgroundColor()) {
+			g.setColor(chart.getBackgroundColor());
+			g.fillRect((int) 0, (int) 0, (int) width, (int) height);
+		}
 
 		if (null != subAxis) {
 			drawSubAxis(axis, subAxis, graphX, graphY, graphWidth, graphHeight, g);
@@ -99,8 +102,18 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 				double sWidth = value * scaleWidth;
 				double sHeight = value * scaleHeight;
 
-				g.setColor(Color.red);
-				g.drawArc((int) (middleX - sWidth) + 1, (int) (middleY - sHeight) + 1, (int) (sWidth * 2.f), (int) (sHeight * 2), i * angle, angle);
+				Color fillColor = (null != point.getFillColor()) ? point.getFillColor() : data.getFillColor();
+				Color strokeColor = (null != point.getStrokeColor()) ? point.getStrokeColor() : data.getStrokeColor();
+				if (null != fillColor) {
+					g.setColor(fillColor);
+					g.fillArc((int) (middleX - sWidth) + 1, (int) (middleY - sHeight) + 1, (int) (sWidth * 2.f), (int) (sHeight * 2), i * angle,
+							angle);
+				}
+				if (null != strokeColor) {
+					g.setColor(strokeColor);
+					g.drawArc((int) (middleX - sWidth) + 1, (int) (middleY - sHeight) + 1, (int) (sWidth * 2.f), (int) (sHeight * 2), i * angle,
+							angle);
+				}
 			}
 		}
 
@@ -135,6 +148,7 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 			final double aGraphHeight, final Graphics2D g) {
 		double maximumValue = aAxis.getMaximumValue();
 		double scale = aAxis.getScale();
+		double subScale = aAxis.getSubScale();
 
 		int memoriWidth = 5; // 目盛の線長さ
 
@@ -144,11 +158,24 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 		double scaleHeight = (aGraphHeight / 2) / maximumValue;
 
 		// 補助サークル
-		g.setStroke(new BasicStroke(0.5f));
-		for (double rang = scale; rang <= maximumValue; rang += scale) {
-			double sWidth = rang * scaleWidth;
-			double sHeight = rang * scaleHeight;
-			g.drawArc((int) (graphX - sWidth), (int) (graphY - sHeight), (int) (sWidth * 2.f), (int) (sHeight * 2), 0, 360);
+		if (null != aAxis.getSubScaleStrokeColor()) {
+			g.setColor(aAxis.getSubScaleStrokeColor());
+			g.setStroke(new BasicStroke(0.5f));
+			for (double rang = subScale; rang <= maximumValue; rang += subScale) {
+				double sWidth = rang * scaleWidth;
+				double sHeight = rang * scaleHeight;
+				g.drawArc((int) (graphX - sWidth), (int) (graphY - sHeight), (int) (sWidth * 2.f), (int) (sHeight * 2), 0, 360);
+			}
+		}
+		// サークル
+		if (null != aAxis.getScaleStrokeColor()) {
+			g.setColor(aAxis.getScaleStrokeColor());
+			g.setStroke(new BasicStroke(0.5f));
+			for (double rang = scale; rang <= maximumValue; rang += scale) {
+				double sWidth = rang * scaleWidth;
+				double sHeight = rang * scaleHeight;
+				g.drawArc((int) (graphX - sWidth), (int) (graphY - sHeight), (int) (sWidth * 2.f), (int) (sHeight * 2), 0, 360);
+			}
 		}
 
 		// 軸を描画
@@ -249,24 +276,40 @@ public class PolarAreaChartGraphics extends AbstractChartGraphics {
 
 		PolarAreaChart chart = new PolarAreaChart();
 		chart.setMargin(new Margin(25.f, 25.f, 25.f, 25.f));
+		chart.setBackgroundColor(Color.white);
 
 		PolarAreaChartAxis axis = new PolarAreaChartAxis();
-		axis.setMaximumValue(1.5);
-		axis.setScale(0.5);
+		axis.setMaximumValue(2.0);
+		axis.setScale(1.0);
+		axis.setScaleStrokeColor(Color.darkGray);
+		axis.setSubScale(0.5);
+		//axis.setSubScaleStrokeColor(Color.lightGray);
 
 		PolarAreaChartSubAxis subAxis = new PolarAreaChartSubAxis();
 		subAxis.setAngle(30);
 
 		List<PolarAreaChartData> datas = new ArrayList<PolarAreaChartData>();
-		PolarAreaChartData data = new PolarAreaChartData();
-		List<PolarAreaChartDataPoint> points = new ArrayList<PolarAreaChartDataPoint>();
+		PolarAreaChartData data1 = new PolarAreaChartData();
+		PolarAreaChartData data2 = new PolarAreaChartData();
+		data1.setStrokeColor(Color.red);
+		data2.setStrokeColor(Color.blue);
+		data2.setFillColor(new Color(0, 0, 255, 64));
+		List<PolarAreaChartDataPoint> points1 = new ArrayList<PolarAreaChartDataPoint>();
+		List<PolarAreaChartDataPoint> points2 = new ArrayList<PolarAreaChartDataPoint>();
 		for (int i = 0; i < 12; i++) {
-			PolarAreaChartDataPoint point = new PolarAreaChartDataPoint(0.1 * i);
-			points.add(point);
+			PolarAreaChartDataPoint point1 = new PolarAreaChartDataPoint(0.1 * i);
+			points1.add(point1);
+			PolarAreaChartDataPoint point2 = new PolarAreaChartDataPoint(1.5 - 0.1 * i);
+			points2.add(point2);
+			if (i == 5) {
+				point2.setFillColor(new Color(0,255,0,64));
+			}
 		}
-		data.setPoints(points);
+		data1.setPoints(points1);
+		data2.setPoints(points2);
 
-		datas.add(data);
+		datas.add(data1);
+		datas.add(data2);
 
 		chart.setAxis(axis);
 		chart.setSubAxis(subAxis);

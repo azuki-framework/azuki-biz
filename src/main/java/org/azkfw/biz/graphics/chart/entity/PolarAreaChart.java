@@ -19,8 +19,6 @@ package org.azkfw.biz.graphics.chart.entity;
 
 import java.util.List;
 
-import org.azkfw.biz.graphics.entity.Margin;
-
 /**
  * このクラスは、鶏頭図情報を格納したクラスです。
  * 
@@ -28,14 +26,12 @@ import org.azkfw.biz.graphics.entity.Margin;
  * @version 1.1.0 2014/06/13
  * @author Kawakicchi
  */
-public class PolarAreaChart extends AbstractChart {
+public final class PolarAreaChart extends AbstractChart {
 
+	// data
 	private List<PolarAreaChartData> datas;
-
 	private PolarAreaChartAxis axis;
 	private PolarAreaChartSubAxis subAxis;
-
-	private Margin margin;
 
 	public void setDatas(final List<PolarAreaChartData> aDatas) {
 		datas = aDatas;
@@ -60,13 +56,4 @@ public class PolarAreaChart extends AbstractChart {
 	public PolarAreaChartSubAxis getSubAxis() {
 		return subAxis;
 	}
-
-	public void setMargin(final Margin aMargin) {
-		margin = aMargin;
-	}
-
-	public Margin getMargin() {
-		return margin;
-	}
-
 }

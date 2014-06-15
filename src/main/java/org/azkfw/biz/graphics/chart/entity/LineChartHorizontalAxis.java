@@ -20,7 +20,15 @@ package org.azkfw.biz.graphics.chart.entity;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * このクラスは、折れ線グラフの横軸情報を格納したクラスです。
+ * 
+ * @since 1.1.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
 public class LineChartHorizontalAxis {
+	
 	private double maximumValue;
 	private double minimumValue;
 	private double scaleCenter;

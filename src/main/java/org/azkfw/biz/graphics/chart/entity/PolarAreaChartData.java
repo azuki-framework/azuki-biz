@@ -17,6 +17,8 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +30,31 @@ import java.util.List;
  */
 public class PolarAreaChartData {
 
+	// Data
 	private List<PolarAreaChartDataPoint> points;
+
+	// Layout
+	private Color strokeColor;
+	private Color fillColor;
+
+	/**
+	 * コンストラクタ
+	 */
+	public PolarAreaChartData() {
+		points = new ArrayList<PolarAreaChartDataPoint>();
+		strokeColor = null;
+		fillColor = null;
+	}
+
+	/**
+	 * コンストラクタ
+	 * @param aPoints ポイント情報
+	 */
+	public PolarAreaChartData(final List<PolarAreaChartDataPoint> aPoints) {
+		points = aPoints;
+		strokeColor = null;
+		fillColor = null;
+	}
 
 	public void setPoints(final List<PolarAreaChartDataPoint> aPoints) {
 		points = aPoints;
@@ -36,5 +62,21 @@ public class PolarAreaChartData {
 
 	public List<PolarAreaChartDataPoint> getPoints() {
 		return points;
+	}
+
+	public void setStrokeColor(final Color aColor) {
+		strokeColor = aColor;
+	}
+
+	public Color getStrokeColor() {
+		return strokeColor;
+	}
+
+	public void setFillColor(final Color aColor) {
+		fillColor = aColor;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
 	}
 }

@@ -17,25 +17,32 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
-import java.awt.Color;
 import java.util.List;
 
-import org.azkfw.biz.graphics.entity.Margin;
+/**
+ * このクラスは、折れ線クラグ情報を格納したクラスです。
+ * 
+ * @since 1.1.0
+ * @version 1.1.0 2014/06/13
+ * @author Kawakicchi
+ */
+public final class LineChart extends AbstractChart {
 
-public class LineChart extends AbstractChart {
-
+	// data
 	private List<LineChartData> datas;
-
 	private LineChartVerticalAxis verticalAxis;
 	private LineChartHorizontalAxis horizontalAxis;
 
-	private Margin margin;
-	private Color backgroundColor;
-
-	
-	
 	public void setDatas(final List<LineChartData> aDatas) {
 		datas = aDatas;
+	}
+
+	public List<LineChartData> getDatas() {
+		return datas;
+	}
+
+	public LineChartVerticalAxis getVerticalAxis() {
+		return verticalAxis;
 	}
 
 	public void setVerticalAxis(final LineChartVerticalAxis aAxis) {
@@ -46,33 +53,7 @@ public class LineChart extends AbstractChart {
 		horizontalAxis = aAxis;
 	}
 
-	public void setMargin(final Margin aMargin) {
-		margin = aMargin;
-	}
-
-	public void setBackgroundColor(final Color aColor) {
-		backgroundColor = aColor;
-	}
-
-	
-	
-	public List<LineChartData> getDatas() {
-		return datas;
-	}
-
-	public LineChartVerticalAxis getVerticalAxis() {
-		return verticalAxis;
-	}
-
 	public LineChartHorizontalAxis getHorizontalAxis() {
 		return horizontalAxis;
-	}
-
-	public Margin getMargin() {
-		return margin;
-	}
-
-	public Color getBackgroundColor() {
-		return backgroundColor;
 	}
 }

@@ -17,15 +17,40 @@
  */
 package org.azkfw.biz.graphics.entity;
 
-public class Rect {
+/**
+ * このクラスは、Rect情報を格納したクラスです。
+ * 
+ * @since 1.1.0
+ * @version 1.1.0 2014/06/15
+ * @author Kawakicchi
+ */
+public final class Rect {
 
 	private double x;
 	private double y;
 	private double width;
 	private double height;
 
+	/**
+	 * コンストラクタ
+	 */
 	public Rect() {
 
+	}
+
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param aX x
+	 * @param aY y
+	 * @param aWidth width
+	 * @param aHeight height
+	 */
+	public Rect(final double aX, final double aY, final double aWidth, final double aHeight) {
+		x = aX;
+		y = aY;
+		width = aWidth;
+		height = aHeight;
 	}
 
 	public void setPosition(final double aX, final double aY) {

@@ -17,6 +17,8 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
+import java.awt.Color;
+
 /**
  * このクラスは、鶏頭図のデータポイント情報を格納したクラスです。
  * 
@@ -28,10 +30,22 @@ public class PolarAreaChartDataPoint {
 
 	private double value;
 
+	// Layout
+	private Color strokeColor;
+	private Color fillColor;
+
+	/**
+	 * コンストラクタ
+	 */
 	public PolarAreaChartDataPoint() {
 		value = 0.0f;
 	}
 
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param aValue
+	 */
 	public PolarAreaChartDataPoint(final double aValue) {
 		value = aValue;
 	}
@@ -42,5 +56,21 @@ public class PolarAreaChartDataPoint {
 
 	public double getValue() {
 		return value;
+	}
+
+	public void setStrokeColor(final Color aColor) {
+		strokeColor = aColor;
+	}
+
+	public Color getStrokeColor() {
+		return strokeColor;
+	}
+
+	public void setFillColor(final Color aColor) {
+		fillColor = aColor;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
 	}
 }
