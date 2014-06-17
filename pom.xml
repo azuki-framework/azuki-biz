@@ -33,7 +33,7 @@
 		<repository>
 			<id>azkfw.org</id>
 			<name>Azuki Framework Temporary Repository</name>
-			<url>file://${project.build.directory}//maven-repository</url>
+			<url>file://${project.build.directory}/../../maven-repository</url>
 		</repository>
 	</distributionManagement>
 	
