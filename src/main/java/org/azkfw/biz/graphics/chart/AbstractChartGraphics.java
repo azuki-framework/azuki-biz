@@ -18,8 +18,6 @@
 package org.azkfw.biz.graphics.chart;
 
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 
 import org.azkfw.biz.graphics.AbstractGraphics;
 
@@ -33,44 +31,15 @@ import org.azkfw.biz.graphics.AbstractGraphics;
 public abstract class AbstractChartGraphics extends AbstractGraphics {
 
 	/**
-	 * width
+	 * コンストラクタ
 	 */
-	private double width;
-
-	/**
-	 * height
-	 */
-	private double height;
-
-	/**
-	 * チャートサイズを設定する。
-	 * 
-	 * @param aWidth width
-	 * @param aheight height
-	 */
-	public final void setSize(final double aWidth, final double aheight) {
-		width = aWidth;
-		height = aheight;
-	}
-
-	protected final double getWidth() {
-		return width;
-	}
-
-	protected final double getHeight() {
-		return height;
+	public AbstractChartGraphics() {
+		super();
 	}
 
 	@Override
-	public BufferedImage draw() {
-		BufferedImage image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = image.createGraphics();
-
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+	public void doDraw(final Graphics2D g) {
 		drawChart(g);
-
-		return image;
 	}
 
 	protected abstract void drawChart(final Graphics2D g);

@@ -19,8 +19,20 @@ package org.azkfw.biz.graphics;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * このインターフェースは、グラフィクス機能を表現するインターフェースです。
+ * 
+ * @since 1.0.0
+ * @version 1.0.0 2013/06/13
+ * @author Kawakicchi
+ */
 public interface Graphics {
 
-	BufferedImage draw();
-	
+	/**
+	 * 描画処理を行なう。
+	 * 
+	 * @return BufferedImage
+	 */
+	public BufferedImage draw();
+
 }
