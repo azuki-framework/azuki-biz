@@ -17,7 +17,6 @@
  */
 package org.azkfw.biz.graphics.chart;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -28,25 +27,25 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.azkfw.biz.graphics.chart.entity.PolarAreaChart;
-import org.azkfw.biz.graphics.chart.entity.PolarAreaChartAxis;
-import org.azkfw.biz.graphics.chart.entity.PolarAreaChartData;
-import org.azkfw.biz.graphics.chart.entity.PolarAreaChartDataPoint;
-import org.azkfw.biz.graphics.chart.entity.PolarAreaChartSubAxis;
+import org.azkfw.biz.graphics.chart.entity.CircleChart;
+import org.azkfw.biz.graphics.chart.entity.CircleChartAxis;
+import org.azkfw.biz.graphics.chart.entity.CircleChartData;
+import org.azkfw.biz.graphics.chart.entity.CircleChartDataPoint;
+import org.azkfw.biz.graphics.chart.entity.CircleChartSubAxis;
 import org.azkfw.biz.graphics.entity.Margin;
 
 /**
- * このクラスは、鶏頭図を描画するグラフィクスクラスです。
+ * このクラスは、サークルグラフを描画するグラフィクスクラスです。
  * 
  * @since 1.1.0
- * @version 1.1.0 2014/06/13
+ * @version 1.1.0 2014/06/17
  * @author Kawakicchi
  */
-public class PolarAreaChartGraphics extends AbstractCircleChartGraphics {
+public class CircleChartGraphics extends AbstractCircleChartGraphics {
 
-	private PolarAreaChart chart;
+	private CircleChart chart;
 
-	public void setChart(final PolarAreaChart aChart) {
+	public void setChart(final CircleChart aChart) {
 		chart = aChart;
 	}
 
@@ -56,8 +55,8 @@ public class PolarAreaChartGraphics extends AbstractCircleChartGraphics {
 		int height = (int) getHeight();
 		Margin margin = chart.getMargin();
 
-		PolarAreaChartAxis axis = chart.getAxis();
-		PolarAreaChartSubAxis subAxis = chart.getSubAxis();
+		CircleChartAxis axis = chart.getAxis();
+		CircleChartSubAxis subAxis = chart.getSubAxis();
 
 		// //////////////////////////////////////////////////
 		double middleX = getWidth() / 2.f;
@@ -82,36 +81,33 @@ public class PolarAreaChartGraphics extends AbstractCircleChartGraphics {
 		drawAxis1(axis, graphX, graphY, graphWidth, graphHeight, g);
 
 		// //////////////////////////////////////////////////////////////////
-		List<PolarAreaChartData> datas = chart.getDatas();
-		for (PolarAreaChartData data : datas) {
-			List<PolarAreaChartDataPoint> points = data.getPoints();
+		List<CircleChartData> datas = chart.getDatas();
+		for (CircleChartData data : datas) {
+			List<CircleChartDataPoint> points = data.getPoints();
 
-			int angle = 360 / points.size();
+			int[] pxs = new int[points.size() + 1];
+			int[] pys = new int[points.size() + 1];
 
-			g.setStroke(new BasicStroke(1.5f));
 			for (int i = 0; i < points.size(); i++) {
-				PolarAreaChartDataPoint point = points.get(i);
+				CircleChartDataPoint point = points.get(i);
+				double x = point.getRadius() * Math.cos(RADIANS(point.getAngle()));
+				double y = point.getRadius() * Math.sin(RADIANS(point.getAngle()));
+				pxs[i] = (int) (middleX + (x * scaleWidth));
+				pys[i] = (int) (middleY - (y * scaleHeight));
+			}
+			CircleChartDataPoint point = points.get(0);
+			double x = point.getRadius() * Math.cos(RADIANS(point.getAngle()));
+			double y = point.getRadius() * Math.sin(RADIANS(point.getAngle()));
+			pxs[points.size()] = (int) (middleX + (x * scaleWidth));
+			pys[points.size()] = (int) (middleY - (y * scaleHeight));
 
-				double value = point.getValue();
-				if (0 == value) {
-					continue;
-				}
-
-				double sWidth = value * scaleWidth;
-				double sHeight = value * scaleHeight;
-
-				Color fillColor = (null != point.getFillColor()) ? point.getFillColor() : data.getFillColor();
-				Color strokeColor = (null != point.getStrokeColor()) ? point.getStrokeColor() : data.getStrokeColor();
-				if (null != fillColor) {
-					g.setColor(fillColor);
-					g.fillArc((int) (middleX - sWidth) + 1, (int) (middleY - sHeight) + 1, (int) (sWidth * 2.f), (int) (sHeight * 2), i * angle,
-							angle);
-				}
-				if (null != strokeColor) {
-					g.setColor(strokeColor);
-					g.drawArc((int) (middleX - sWidth) + 1, (int) (middleY - sHeight) + 1, (int) (sWidth * 2.f), (int) (sHeight * 2), i * angle,
-							angle);
-				}
+			if (null != data.getFillColor()) {
+				g.setColor(data.getFillColor());
+				g.fillPolygon(pxs, pys, points.size() + 1);
+			}
+			if (null != data.getStrokeColor()) {
+				g.setColor(data.getStrokeColor());
+				g.drawPolyline(pxs, pys, points.size() + 1);
 			}
 		}
 		// //////////////////////////////////////////////////////////////////
@@ -121,37 +117,33 @@ public class PolarAreaChartGraphics extends AbstractCircleChartGraphics {
 
 	public static void main(final String[] args) {
 
-		PolarAreaChart chart = new PolarAreaChart();
+		CircleChart chart = new CircleChart();
 		chart.setMargin(new Margin(25.f, 25.f, 25.f, 25.f));
 		chart.setBackgroundColor(Color.white);
 
-		PolarAreaChartAxis axis = new PolarAreaChartAxis();
+		CircleChartAxis axis = new CircleChartAxis();
 		axis.setMaximumValue(2.0);
 		axis.setScale(1.0);
 		axis.setScaleStrokeColor(Color.darkGray);
 		axis.setSubScale(0.5);
 		//axis.setSubScaleStrokeColor(Color.lightGray);
 
-		PolarAreaChartSubAxis subAxis = new PolarAreaChartSubAxis();
+		CircleChartSubAxis subAxis = new CircleChartSubAxis();
 		subAxis.setAngle(30);
 
-		List<PolarAreaChartData> datas = new ArrayList<PolarAreaChartData>();
-		PolarAreaChartData data1 = new PolarAreaChartData();
-		PolarAreaChartData data2 = new PolarAreaChartData();
+		List<CircleChartData> datas = new ArrayList<CircleChartData>();
+		CircleChartData data1 = new CircleChartData();
+		CircleChartData data2 = new CircleChartData();
 		data1.setStrokeColor(Color.red);
 		data2.setStrokeColor(Color.blue);
 		data2.setFillColor(new Color(0, 0, 255, 64));
-		List<PolarAreaChartDataPoint> points1 = new ArrayList<PolarAreaChartDataPoint>();
-		List<PolarAreaChartDataPoint> points2 = new ArrayList<PolarAreaChartDataPoint>();
-		for (int i = 0; i < 12; i++) {
-			PolarAreaChartDataPoint point1 = new PolarAreaChartDataPoint(0.1 * i);
+		List<CircleChartDataPoint> points1 = new ArrayList<CircleChartDataPoint>();
+		List<CircleChartDataPoint> points2 = new ArrayList<CircleChartDataPoint>();
+		for (int i = 0; i < 36; i++) {
+			CircleChartDataPoint point1 = new CircleChartDataPoint(1.2, i * 10);
 			points1.add(point1);
-			PolarAreaChartDataPoint point2 = new PolarAreaChartDataPoint(1.5 - 0.1 * i);
+			CircleChartDataPoint point2 = new CircleChartDataPoint(0.05 * i, i * 10);
 			points2.add(point2);
-			if (i == 5) {
-				point2.setFillColor(new Color(0, 255, 0, 64));
-				point2.setStrokeColor(new Color(0, 255, 0, 200));
-			}
 		}
 		data1.setPoints(points1);
 		data2.setPoints(points2);
@@ -163,7 +155,7 @@ public class PolarAreaChartGraphics extends AbstractCircleChartGraphics {
 		chart.setSubAxis(subAxis);
 		chart.setDatas(datas);
 
-		PolarAreaChartGraphics g = new PolarAreaChartGraphics();
+		CircleChartGraphics g = new CircleChartGraphics();
 		g.setSize(800, 800);
 		;
 		g.setChart(chart);

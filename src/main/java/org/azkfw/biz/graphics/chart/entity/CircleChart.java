@@ -17,16 +17,43 @@
  */
 package org.azkfw.biz.graphics.chart.entity;
 
+import java.util.List;
+
 /**
- * このクラスは、鶏頭図の軸情報を格納したクラスです。
+ * このクラスは、サークルグラフ情報を格納したクラスです。
  * 
  * @since 1.1.0
- * @version 1.1.0 2014/06/13
+ * @version 1.1.0 2014/06/17
  * @author Kawakicchi
  */
-public class PolarAreaChartAxis extends CircleChartAxis {
+public final class CircleChart extends AbstractChart {
 
-	public PolarAreaChartAxis() {
+	// data
+	private List<CircleChartData> datas;
+	private CircleChartAxis axis;
+	private CircleChartSubAxis subAxis;
 
+	public void setDatas(final List<CircleChartData> aDatas) {
+		datas = aDatas;
+	}
+
+	public List<CircleChartData> getDatas() {
+		return datas;
+	}
+
+	public void setAxis(final CircleChartAxis aAxis) {
+		axis = aAxis;
+	}
+
+	public CircleChartAxis getAxis() {
+		return axis;
+	}
+
+	public void setSubAxis(final CircleChartSubAxis aAxis) {
+		subAxis = aAxis;
+	}
+
+	public CircleChartSubAxis getSubAxis() {
+		return subAxis;
 	}
 }

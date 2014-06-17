@@ -18,15 +18,49 @@
 package org.azkfw.biz.graphics.chart.entity;
 
 /**
- * このクラスは、鶏頭図の軸情報を格納したクラスです。
+ * このクラスは、サークルグラフのデータポイント情報を格納したクラスです。
  * 
  * @since 1.1.0
- * @version 1.1.0 2014/06/13
+ * @version 1.1.0 2014/06/17
  * @author Kawakicchi
  */
-public class PolarAreaChartAxis extends CircleChartAxis {
+public class CircleChartDataPoint {
 
-	public PolarAreaChartAxis() {
+	private double radius;
+	private double angle;
 
+	/**
+	 * コンストラクタ
+	 */
+	public CircleChartDataPoint() {
+		radius = 0.0f;
+		angle = 0.0f;
+	}
+
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param aRadius 半径
+	 * @param aAngle 角度
+	 */
+	public CircleChartDataPoint(final double aRadius, final double aAngle) {
+		radius = aRadius;
+		angle = aAngle;
+	}
+
+	public void setRadius(final double aRadius) {
+		radius = aRadius;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setAngle(final double aAngle) {
+		angle = aAngle;
+	}
+
+	public double getAngle() {
+		return angle;
 	}
 }

@@ -24,15 +24,9 @@ package org.azkfw.biz.graphics.chart.entity;
  * @version 1.1.0 2014/06/13
  * @author Kawakicchi
  */
-public class PolarAreaChartSubAxis {
+public class PolarAreaChartSubAxis extends CircleChartSubAxis {
 
-	private double angle;
+	public PolarAreaChartSubAxis() {
 
-	public void setAngle(final double aAngle) {
-		angle = aAngle;
-	}
-
-	public double getAngle() {
-		return angle;
 	}
 }
