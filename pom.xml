@@ -18,7 +18,7 @@
 
 	<groupId>org.azkfw</groupId>
 	<artifactId>azuki-biz</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>azuki-biz</name>
@@ -36,7 +36,7 @@
 			<url>file://${project.build.directory}/../../maven-repository</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>AzukiFrameworkRepository</id>
@@ -52,9 +52,15 @@
 		<dependency>
 			<groupId>org.azkfw</groupId>
 			<artifactId>azuki-base</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
-	
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
@@ -92,11 +98,11 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-						    <Built-By>AzukiFramework</Built-By>
+							<Built-By>AzukiFramework</Built-By>
 						</manifestEntries>
 					</archive>
 				</configuration>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 </project>
