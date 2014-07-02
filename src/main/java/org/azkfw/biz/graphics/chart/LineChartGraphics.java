@@ -30,8 +30,8 @@ import org.azkfw.biz.graphics.chart.entity.LineChartDataPoint;
 import org.azkfw.biz.graphics.chart.entity.LineChartHorizontalAxis;
 import org.azkfw.biz.graphics.chart.entity.LineChartVerticalAxis;
 import org.azkfw.biz.graphics.entity.Rect;
-import org.azkfw.core.util.ListUtility;
-import org.azkfw.core.util.StringUtility;
+import org.azkfw.util.ListUtility;
+import org.azkfw.util.StringUtility;
 
 /**
  * このクラスは、折れ線グラフを描画するグラフィクスクラスです。
@@ -164,7 +164,6 @@ public class LineChartGraphics extends AbstractChartGraphics {
 			hInterval *= -1;
 		// System.out.println("interval " + hInterval + ":" + vInterval);
 
-		
 		if (null != chart.getBackgroundColor()) {
 			g.setColor(chart.getBackgroundColor());
 			g.fillRect((int) 0, (int) 0, (int) width, (int) height);
