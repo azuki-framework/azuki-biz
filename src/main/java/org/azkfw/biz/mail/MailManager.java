@@ -27,9 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.digester3.Digester;
-import org.azkfw.business.BusinessServiceException;
-import org.azkfw.business.manager.AbstractManager;
 import org.azkfw.context.Context;
+import org.azkfw.lang.LoggingObject;
 import org.azkfw.util.StringUtility;
 import org.xml.sax.SAXException;
 
@@ -40,7 +39,7 @@ import org.xml.sax.SAXException;
  * @version 1.0.0 2014/01/28
  * @author Kawakicchi
  */
-public class MailManager extends AbstractManager {
+public class MailManager extends LoggingObject {
 
 	/**
 	 * Instance
@@ -81,10 +80,9 @@ public class MailManager extends AbstractManager {
 	 * 
 	 * @param aStream メール情報
 	 * @param aContext コンテキスト
-	 * @throws BusinessServiceException ビジネスサービスに起因する問題が発生した場合
 	 * @throws IOException 入出力操作に起因する問題が発生した場合
 	 */
-	public synchronized static void load(final InputStream aStream, final Context aContext) throws BusinessServiceException, IOException {
+	public synchronized static void load(final InputStream aStream, final Context aContext) throws IOException {
 		INSTANCE.doLoad(StringUtility.EMPTY, aStream, aContext);
 	}
 
@@ -111,7 +109,7 @@ public class MailManager extends AbstractManager {
 	 * @throws BusinessServiceException ビジネスサービスに起因する問題が発生した場合
 	 * @throws IOException 入出力操作に起因する問題が発生した場合
 	 */
-	private void doLoad(final String aNamespace, final InputStream aStream, final Context aContext) throws BusinessServiceException, IOException {
+	private void doLoad(final String aNamespace, final InputStream aStream, final Context aContext) throws IOException {
 
 		String crlf = "\r\n";
 		try {
@@ -145,7 +143,7 @@ public class MailManager extends AbstractManager {
 		for (int i = 0; i < mailList.size(); i++) {
 			MailEntity mail = mailList.get(i);
 			if (m.containsKey(mail.getName())) {
-				throw new BusinessServiceException("Duplicate mail name.[" + mail.getName() + "]");
+				throw new IOException("Duplicate mail name.[" + mail.getName() + "]");
 			} else {
 				BufferedReader reader = null;
 				try {

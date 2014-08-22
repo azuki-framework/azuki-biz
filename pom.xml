@@ -18,7 +18,7 @@
 
 	<groupId>org.azkfw</groupId>
 	<artifactId>azuki-biz</artifactId>
-	<version>1.3.0</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>azuki-biz</name>
@@ -51,8 +51,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.azkfw</groupId>
-			<artifactId>azuki-business</artifactId>
-			<version>1.3.0</version>
+			<artifactId>azuki-base</artifactId>
+			<version>1.4.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
