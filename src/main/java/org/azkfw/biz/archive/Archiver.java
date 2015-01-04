@@ -35,7 +35,7 @@ public interface Archiver {
 	 * @param aSourceFile ソースファイル
 	 * @return
 	 */
-	public boolean compression(final File aArchiveFile, final File aSourceFile);
+	public void compression(final File aArchiveFile, final File aSourceFile) throws ArchiveException;
 
 	/**
 	 * アーカイブファイルを展開する。
@@ -44,6 +44,6 @@ public interface Archiver {
 	 * @param aDistDirectory 展開ディレクトリ
 	 * @return
 	 */
-	public boolean decompression(final File aArchiveFile, final File aDistDirectory);
+	public void decompression(final File aArchiveFile, final File aDistDirectory) throws ArchiveException;
 
 }

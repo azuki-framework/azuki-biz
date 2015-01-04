@@ -24,7 +24,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipException;
 
 import org.apache.tools.zip.ZipEntry;
@@ -68,6 +70,22 @@ public final class ZipUtility {
 	 * ファイル及びディレクトリをZIP圧縮します。
 	 * 
 	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ名リスト
+	 * @param aEncoding エンコーディング名
+	 * @return ZIPファイル
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
+	 */
+	public static File zip(final String aZipFile, final List<String> aTargetFiles, final String aEncoding) throws ZipException,
+			FileNotFoundException, IOException {
+		return zip(aZipFile, aTargetFiles.toArray(new String[0]), aEncoding);
+	}
+
+	/**
+	 * ファイル及びディレクトリをZIP圧縮します。
+	 * 
+	 * @param aZipFile ZIPファイル名
 	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ名配列
 	 * @param aEncoding エンコーディング名
 	 * @return ZIPファイル
@@ -83,6 +101,38 @@ public final class ZipUtility {
 			files[i] = new File(aTargetFiles[i]);
 		}
 		return zip(new File(aZipFile), files, aEncoding);
+	}
+
+	/**
+	 * ファイル及びディレクトリをZIP圧縮します。
+	 * 
+	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリリスト
+	 * @param aEncoding エンコーディング名
+	 * @return ZIPファイル
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
+	 */
+	public static File zip(final File aZipFile, final List<File> aTargetFiles, final String aEncoding) throws ZipException, FileNotFoundException,
+			IOException {
+		return zip(aZipFile, aTargetFiles.toArray(new File[0]), aEncoding);
+	}
+
+	/**
+	 * ファイル及びディレクトリをZIP圧縮します。
+	 * 
+	 * @param aZipFile ZIPファイル名
+	 * @param aTargetFiles 圧縮対象のファイル及びディレクトリ配列
+	 * @param aEncoding エンコーディング名
+	 * @return ZIPファイル
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
+	 */
+	public static File zip(final File aZipFile, final File[] aTargetFiles, final Charset aEncoding) throws ZipException, FileNotFoundException,
+			IOException {
+		return zip(aZipFile, aTargetFiles, aEncoding.name());
 	}
 
 	/**
@@ -171,7 +221,24 @@ public final class ZipUtility {
 	 */
 	public static File unzip(final String aZipFile, final String aOutDir, final boolean aMakeDir) throws ZipException, FileNotFoundException,
 			IOException {
-		return unzip(new File(aZipFile), new File(aOutDir), aMakeDir, null);
+		return unzip(new File(aZipFile), new File(aOutDir), aMakeDir, (String)null);
+	}
+
+	/**
+	 * ZIPファイルを解凍します。
+	 * 
+	 * @param aZipFile ZIPファイル
+	 * @param aOutDir 解凍先ディレクトリ
+	 * @param aMakeDir ファイル名でディレクトリ作成を行う。
+	 * @param aEncoding エンコーディング名
+	 * @return 解凍されたファイルまたはディレクトリ
+	 * @throws ZipException ZIP処理時に問題が発生した場合
+	 * @throws FileNotFoundException ファイルが見つからなかった場合
+	 * @throws IOException IO操作時に問題が発生した場合
+	 */
+	public static File unzip(final File aZipFile, final File aOutDir, final boolean aMakeDir, final Charset aEncoding) throws ZipException,
+			FileNotFoundException, IOException {
+		return unzip(aZipFile, aOutDir, aMakeDir, aEncoding.name());
 	}
 
 	/**
