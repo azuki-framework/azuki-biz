@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipException;
@@ -221,7 +222,7 @@ public final class ZipUtility {
 	 */
 	public static File unzip(final String aZipFile, final String aOutDir, final boolean aMakeDir) throws ZipException, FileNotFoundException,
 			IOException {
-		return unzip(new File(aZipFile), new File(aOutDir), aMakeDir, (String)null);
+		return unzip(new File(aZipFile), new File(aOutDir), aMakeDir, (String) null);
 	}
 
 	/**
@@ -259,7 +260,7 @@ public final class ZipUtility {
 		if (aMakeDir) {
 			String fileName = aZipFile.getName();
 			String name = fileName.substring(0, fileName.lastIndexOf("."));
-			outputDir = new File(aOutDir.getAbsolutePath() + "\\" + name);
+			outputDir = Paths.get(aOutDir.getAbsolutePath(), name).toFile();
 		} else {
 			outputDir = aOutDir;
 		}
@@ -269,7 +270,8 @@ public final class ZipUtility {
 		while (enumeration.hasMoreElements()) {
 			ZipEntry entry = enumeration.nextElement();
 			if (entry.isDirectory()) {
-				new File(entry.getName()).mkdirs();
+				File dir = Paths.get(outputDir.getAbsolutePath(), entry.getName()).toFile();
+				dir.mkdirs();
 			} else {
 				File file = new File(outputDir, entry.getName());
 				file.getParentFile().mkdirs();
