@@ -342,6 +342,7 @@ public class LineChartGraphics extends AbstractChartGraphics {
 										int fontHeight = font.getSize();
 
 										boolean leftFlag = true;
+										@SuppressWarnings("unused")
 										boolean topFlag = true;
 										double x2 = x - 20 - 2 * 2 - fontWidth;
 										double y2 = y - 20 - 2 - (fontHeight / 2);
