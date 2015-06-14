@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester.Digester;
 import org.azkfw.context.Context;
 import org.azkfw.lang.LoggingObject;
 import org.azkfw.util.StringUtility;
@@ -109,6 +109,7 @@ public class MailManager extends LoggingObject {
 	 * @throws BusinessServiceException ビジネスサービスに起因する問題が発生した場合
 	 * @throws IOException 入出力操作に起因する問題が発生した場合
 	 */
+	@SuppressWarnings("unchecked")
 	private void doLoad(final String aNamespace, final InputStream aStream, final Context aContext) throws IOException {
 
 		String crlf = "\r\n";
@@ -124,7 +125,7 @@ public class MailManager extends LoggingObject {
 			digester.addObjectCreate("azuki/mails/mail", MailEntity.class);
 			digester.addSetProperties("azuki/mails/mail");
 			digester.addSetNext("azuki/mails/mail", "add");
-			mailList = digester.parse(aStream);
+			mailList = (List<MailEntity>)digester.parse(aStream);
 		} catch (SAXException ex) {
 			error(ex);
 			throw new IOException(ex);
