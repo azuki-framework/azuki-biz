@@ -28,7 +28,7 @@ import java.util.Map;
 
 import org.apache.commons.digester.Digester;
 import org.azkfw.context.Context;
-import org.azkfw.lang.LoggingObject;
+import org.azkfw.log.LoggingObject;
 import org.azkfw.util.StringUtility;
 import org.xml.sax.SAXException;
 
